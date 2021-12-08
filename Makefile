@@ -18,7 +18,7 @@ L_FLAGS	=	-lmlx -lm -L /usr/include -lX11 -lXext -no-pie
 
 
 $(NAME):	$(OBJS) libftmake
-			$(CC) $(CFLAGS) libft/libft.a $(OBJS) $(M_FLAGS) -o $(NAME)
+			$(CC) $(CFLAGS) -Llibft -lft $(OBJS) $(M_FLAGS) -o $(NAME)
 
 libftmake:
 			$(LIBFT)
