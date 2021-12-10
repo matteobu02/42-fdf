@@ -6,23 +6,11 @@
 /*   By: mbucci <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:40:31 by mbucci            #+#    #+#             */
-/*   Updated: 2021/12/06 16:06:16 by mbucci           ###   ########.fr       */
+/*   Updated: 2021/12/09 16:51:30 by mbucci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 void	*free_str(char *s)
 {

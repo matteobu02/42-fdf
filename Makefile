@@ -10,20 +10,23 @@ LIBFT	=	make -C libft/
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g
 
-M_FLAGS	=	-lmlx -framework AppKit -framework OpenGL
+M_FLAGS	=	-lm -lmlx -framework AppKit -framework OpenGL
 
 L_FLAGS	=	-lmlx -lm -L /usr/include -lX11 -lXext -no-pie
 
 
+all:		$(NAME)
+
 $(NAME):	$(OBJS) libftmake
 			$(CC) $(CFLAGS) -Llibft -lft $(OBJS) $(M_FLAGS) -o $(NAME)
 
+linux:		$(OBJS) libftmake
+			$(CC) $(CFLAGS) -Llibft -lft $(OBJS) $(L_FLAGS) -o $(NAME)
+
 libftmake:
 			$(LIBFT)
-
-all:		$(NAME)
 
 clean:
 			rm -rf $(OBJS)
