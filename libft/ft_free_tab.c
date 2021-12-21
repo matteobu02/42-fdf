@@ -6,7 +6,7 @@
 /*   By: mbucci <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 12:36:50 by mbucci            #+#    #+#             */
-/*   Updated: 2021/12/07 12:21:02 by mbucci           ###   ########.fr       */
+/*   Updated: 2021/12/21 14:35:56 by mbucci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	*ft_free_tab(char **tab)
 		free(tab[i]);
 		tab[i] = NULL;
 	}
-	tab = NULL;
+	free(tab);
 	return (NULL);
 }

@@ -5,87 +5,110 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbucci <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/07 12:30:17 by mbucci            #+#    #+#             */
-/*   Updated: 2021/12/07 12:30:19 by mbucci           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbucci <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 13:38:20 by mbucci            #+#    #+#             */
-/*   Updated: 2021/09/16 12:51:29 by mbucci           ###   ########.fr       */
+/*   Updated: 2021/12/21 15:10:04 by mbucci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count_words(char *str, char c)
+static int	count_words(char *s, char c)
 {
+	int	flag;
 	int	count;
 	int	i;
-	int	trigger;
 
-	i = -1;
+	flag = 0;
 	count = 0;
-	trigger = 0;
-	while (str[++i] != '\0')
+	i = -1;
+	if (c == 0)
 	{
-		if (str[i] != c && trigger == 0)
+		if (!*s)
+			return (0);
+		return (1);
+	}
+	while (s[++i])
+	{
+		if (flag && s[i] == c)
+			flag = 0;
+		else if (!flag && s[i] != c)
 		{
-			trigger = 1;
+			flag = 1;
 			count++;
 		}
-		else if (str[i] == c)
-			trigger = 0;
 	}
 	return (count);
 }
 
-static char	*ft_word_dup(char *str, int start, int end)
+static int	get_len_word(char *s, char c, int index)
 {
-	char	*word;
-	int		i;
+	int	flag;
+	int	count;
+	int	i;
+	int	len;
 
-	i = 0;
-	word = (char *)malloc(end - start + 1);
-	if (!word)
-		return (NULL);
-	while (start < end)
-		word[i++] = str[start++];
-	word[i] = '\0';
-	return (word);
+	i = -1;
+	flag = 0;
+	count = 0;
+	len = ft_strlen(s);
+	while (s[++i] && index)
+	{
+		if (flag && s[i] == c)
+		{
+			flag = 0;
+			index--;
+		}
+		else if (!flag && s[i] != c)
+			flag = 1;
+	}
+	while (s[i] == c)
+		i++;
+	while (s[i++] != c && i <= len)
+		count++;
+	return (count);
 }
 
-char	**ft_split(char *s, char c)
+static void	fill_tab(char *s, char c, char **tab, int len)
 {
-	int		i;
-	size_t	count;
-	int		start;
+	int	i;
+	int	j;
+
+	i = 0;
+	while (s && i < len)
+	{
+		while (s && *s == c)
+			s++;
+		j = 0;
+		while (s && *s != c)
+		{
+			tab[i][j++] = *s++;
+			if (!*s)
+				break ;
+		}
+		tab[i++][j] = '\0';
+	}
+}
+
+char	**ft_split(char	*s, char c)
+{
 	char	**tab;
+	int		words;
+	int		i;
 
 	if (!s)
 		return (NULL);
-	tab = (char **)malloc((ft_count_words(s, c) + 1) * sizeof(char *));
+	words = count_words(s, c);
+	tab = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!tab)
 		return (NULL);
 	i = -1;
-	count = 0;
-	start = -1;
-	while (++i <= ft_strlen(s))
+	while (++i < words)
 	{
-		if (s[i] != c && start < 0)
-			start = i;
-		else if ((s[i] == c || i == ft_strlen(s)) && start >= 0)
-		{
-			tab[count++] = ft_word_dup(s, start, i);
-			start = -1;
-		}
+		tab[i] = (char *)malloc(get_len_word(s, c, i) + 1);
+		if (!tab[i])
+			return (ft_free_tab(tab));
 	}
-	tab[count] = NULL;
+	tab[i] = NULL;
+	fill_tab(s, c, tab, words);
 	return (tab);
 }

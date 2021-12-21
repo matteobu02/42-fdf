@@ -27,8 +27,8 @@ all:		$(NAME)
 clean:
 			rm -rf $(OBJS)
 
-fclean:		clean
-			rm -rf $(NAME)
+fclean:
+			rm -rf $(NAME) $(OBJS)
 
 re:			fclean all
 

@@ -6,7 +6,7 @@
 /*   By: mbucci <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:05:26 by mbucci            #+#    #+#             */
-/*   Updated: 2021/12/07 12:35:42 by mbucci           ###   ########.fr       */
+/*   Updated: 2021/12/21 15:12:54 by mbucci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_utohexa(unsigned long n, int *ptr, int ca);*/
 
 /*** GET_NEXT_LINE ***/
 
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 10000
 
 char	*get_next_line(int fd);
 void	*free_str(char *s);
