@@ -6,7 +6,7 @@
 /*   By: mbucci <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:16:57 by mbucci            #+#    #+#             */
-/*   Updated: 2021/12/21 15:12:33 by mbucci           ###   ########.fr       */
+/*   Updated: 2023/06/07 16:44:38 by mbucci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <math.h>
 # include <mlx.h>
-# include "../libft/libft.h"
+# include "libft.h"
 
 typedef struct s_fdf
 {

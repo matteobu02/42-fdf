@@ -6,7 +6,7 @@
 /*   By: mbucci <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:05:26 by mbucci            #+#    #+#             */
-/*   Updated: 2021/12/21 15:12:54 by mbucci           ###   ########.fr       */
+/*   Updated: 2023/06/07 16:09:01 by mbucci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_putchar_fd(int c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char *s, char c);
 void	ft_strcpy(char *dst, char *src);
-int		ft_strlen(char *s);
+int		ft_strlen(const char *s);
 
 /*** FT_PRINTF ***/
 

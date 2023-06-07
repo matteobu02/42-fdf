@@ -1,39 +1,52 @@
-NAME	=	fdf
+NAME		=	fdf
+CC			=	cc
+CFLAGS		=	-Wall -Wextra -Werror -I $(INCLUDES) -I libft/includes/
+SRCDIR		=	./srcs/
+OBJDIR		=	./objs/
+INCLUDES	=	./includes/
+OS			=	$(shell uname)
 
-SRCS	=	srcs/main.c			\
-			srcs/read_file.c	\
-			srcs/draw_map.c		\
-			srcs/drawing_tools.c
+ifeq ($(OS), Linux)
+	MLX_FLAGS = -lmlx -lX11 -lXext -Llibft -lft
+else
+	MLX_FLAGS = -lmlx -Llibft -lft -framework AppKit -framework OpenGL
+endif
 
-OBJS	=	$(SRCS:.c=.o)
+SRCS	=	main.c			\
+			read_file.c		\
+			draw_map.c		\
+			drawing_tools.c	\
 
-CC		=	gcc
-
-CFLAGS	=	-Wall -Wextra -Werror
-
-M_FLAGS	=	-lmlx -Llibft -lft -framework AppKit -framework OpenGL
-
-L_FLAGS	=	-lmlx -lX11 -lXext -Llibft -lft
+OBJS	=	${addprefix $(OBJDIR), $(SRCS:%.c=%.o)}
 
 
-all:		$(NAME)
+# ===== #
 
-$(NAME):	$(OBJS)
-			make -C libft/
-			$(CC) $(CFLAGS) $(OBJS) $(M_FLAGS) -o $(NAME)
 
-linux:		$(OBJS)
-			make -C libft/
-			$(CC) $(CFLAGS) $(OBJS) $(L_FLAGS) -o $(NAME)
+all:			$(NAME)
+
+$(NAME):		$(OBJDIR) $(OBJS)
+				@make -C libft/
+				$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME)
+
+bonus:			$(OBJDIR) $(OBJS)
+				# TODO
 
 clean:
-			rm -rf $(OBJS)
-			make -C libft/ clean
+				@rm -rf $(OBJDIR)
+				@make -C libft/ clean
 
-fclean:		
-			make -C libft/ fclean
-			rm -rf $(NAME) $(OBJS)
+fclean:			
+				@make -C libft/ fclean
+				@rm -rf $(NAME) $(OBJDIR)
+				@echo "Project cleaned"
 
-re:			clean all
+re:				clean all
 
-.PHONY:		re clean fclean libftmake all
+$(OBJDIR)%.o:	$(SRCDIR)%.c
+				$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR):
+				@mkdir -p $(OBJDIR)
+
+.PHONY:			re clean fclean all

@@ -6,18 +6,18 @@
 /*   By: mbucci <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 15:56:18 by mbucci            #+#    #+#             */
-/*   Updated: 2021/11/30 13:49:49 by mbucci           ###   ########.fr       */
+/*   Updated: 2023/06/07 16:09:04 by mbucci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(char *s)
+int	ft_strlen(const char *s)
 {
 	int	i;
 
 	i = 0;
 	while (s[i])
-		i++;
+		++i;
 	return (i);
 }
