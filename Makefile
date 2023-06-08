@@ -7,9 +7,9 @@ INCLUDES	=	./includes/
 OS			=	$(shell uname)
 
 ifeq ($(OS), Linux)
-	MLX_FLAGS = -lmlx -lX11 -lXext -Llibft -lft
+	MLXFLAGS = -lmlx -lX11 -lXext
 else
-	MLX_FLAGS = -lmlx -Llibft -lft -framework AppKit -framework OpenGL
+	MLXFLAGS = -lmlx -framework AppKit -framework OpenGL
 endif
 
 SRCS	=	main.c			\
@@ -27,21 +27,20 @@ all:			$(NAME)
 
 $(NAME):		$(OBJDIR) $(OBJS)
 				@make -C libft/
-				$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME)
+				$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) -L libft -lft -o $(NAME)
 
 bonus:			$(OBJDIR) $(OBJS)
 				# TODO
 
 clean:
-				@rm -rf $(OBJDIR)
+				rm -rf $(OBJDIR)
 				@make -C libft/ clean
 
 fclean:			
 				@make -C libft/ fclean
-				@rm -rf $(NAME) $(OBJDIR)
-				@echo "Project cleaned"
+				rm -rf $(NAME) $(OBJDIR)
 
-re:				clean all
+re:				fclean all
 
 $(OBJDIR)%.o:	$(SRCDIR)%.c
 				$(CC) $(CFLAGS) -c $< -o $@
@@ -49,4 +48,4 @@ $(OBJDIR)%.o:	$(SRCDIR)%.c
 $(OBJDIR):
 				@mkdir -p $(OBJDIR)
 
-.PHONY:			re clean fclean all
+.PHONY:			re clean fclean objs all
