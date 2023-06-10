@@ -4,9 +4,8 @@ CFLAGS		=	-Wall -Wextra -Werror -I $(INCLUDES) -I libft/includes/
 SRCDIR		=	./srcs/
 OBJDIR		=	./objs/
 INCLUDES	=	./includes/
-OS			=	$(shell uname)
 
-ifeq ($(OS), Linux)
+ifeq ($(shell uname), Linux)
 	MLXFLAGS = -lmlx -lX11 -lXext
 else
 	MLXFLAGS = -lmlx -framework AppKit -framework OpenGL
