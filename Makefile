@@ -1,9 +1,9 @@
-NAME		=	fdf
-CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -I $(INCLUDES) -I libft/includes/
-SRCDIR		=	./srcs/
-OBJDIR		=	./objs/
-INCLUDES	=	./includes/
+NAME	=	fdf
+CC		=	cc
+CFLAGS	=	-Wall -Wextra -Werror -I $(INCLUDE) -I libft/include/
+SRCDIR	=	./src/
+OBJDIR	=	./obj/
+INCLUDE	=	./include/
 
 ifeq ($(shell uname), Linux)
 	MLXFLAGS = -lmlx -lX11 -lXext
@@ -11,12 +11,12 @@ else
 	MLXFLAGS = -lmlx -framework AppKit -framework OpenGL
 endif
 
-SRCS	=	main.c			\
+SRC		=	main.c			\
 			read_file.c		\
 			draw_map.c		\
 			drawing_tools.c	\
 
-OBJS	=	${addprefix $(OBJDIR), $(SRCS:%.c=%.o)}
+OBJ		=	${addprefix $(OBJDIR), $(SRC:%.c=%.o)}
 
 
 # ===== #
@@ -24,20 +24,19 @@ OBJS	=	${addprefix $(OBJDIR), $(SRCS:%.c=%.o)}
 
 all:			$(NAME)
 
-$(NAME):		$(OBJDIR) $(OBJS)
+$(NAME):		$(OBJDIR) $(OBJ)
 				@make -C libft/
-				$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) -L libft -lft -o $(NAME)
+				$(CC) $(CFLAGS) $(OBJ) $(MLXFLAGS) -L libft -lft -o $(NAME)
 
-bonus:			$(OBJDIR) $(OBJS)
+bonus:			$(OBJDIR) $(OBJ)
 				# TODO
 
 clean:
 				rm -rf $(OBJDIR)
-				@make -C libft/ clean
 
-fclean:			
+fclean:			clean
+				rm -rf $(NAME)
 				@make -C libft/ fclean
-				rm -rf $(NAME) $(OBJDIR)
 
 re:				fclean all
 
@@ -47,4 +46,4 @@ $(OBJDIR)%.o:	$(SRCDIR)%.c
 $(OBJDIR):
 				@mkdir -p $(OBJDIR)
 
-.PHONY:			re clean fclean objs all
+.PHONY:			re clean fclean obj all
